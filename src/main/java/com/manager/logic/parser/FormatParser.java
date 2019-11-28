@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import static com.manager.util.TimeUtil.parseEmailDateTime;
 import static com.manager.util.TimeUtil.parseTimestamp;
@@ -43,7 +44,7 @@ public class FormatParser {
 
     private static Email parseComponentsToEmail(JSONObject emailJson) throws JSONException {
         String subject = emailJson.getString("subject");
-        Sender from = new Sender(emailJson.getJSONObject("from"));
+        Sender from = new Sender(emailJson.getJSONObject("from").getJSONObject("emailAddress"));
         LocalDateTime dateTime = parseEmailDateTime(emailJson.getString("receivedDateTime"));
         String body = emailJson.getJSONObject("body").getString("content");
         return new Email(subject, from, dateTime, body, emailJson.toString());
@@ -76,7 +77,7 @@ public class FormatParser {
         try {
             JSONObject indexJson = new JSONObject(jsonString);
             String subject = indexJson.getString("subject");
-            Sender sender = new Sender(indexJson.getString("sender"));
+            Sender sender = new Sender(indexJson.getJSONObject("sender"));
             LocalDateTime receivedDateTime = parseEmailDateTime(indexJson.getString("receivedDateTime"));
             LocalDateTime updatedOn = parseTimestamp(indexJson.getString("updatedOn"));
             ArrayList<Tag> tags = extractTagsFromJson(indexJson);

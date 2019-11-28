@@ -22,24 +22,19 @@ public class Sender {
      * @throws JSONException exception of failure of parsing
      */
     public Sender(JSONObject senderInfo) throws JSONException {
-        this.name = senderInfo.getJSONObject("emailAddress").getString("name");
-        this.address = senderInfo.getJSONObject("emailAddress").getString("address");
-    }
-
-    /**
-     * Constructor of the sender based on the string output of a sender.
-     *
-     * @param senderString the string of sender toString() output used to parse a sender
-     */
-    public Sender(String senderString) {
-        String name = senderString.split("=>")[0].strip();
-        String address = senderString.split("=>")[1].strip();
-        this.name = name;
-        this.address = address;
+        this.name = senderInfo.getString("name");
+        this.address = senderInfo.getString("address");
     }
 
     public String toString() {
-        return name + " => " + address;
+        return name + " <" + address + ">";
+    }
+
+    public String toJsonString() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("address", address);
+        return json.toString();
     }
 
     /**

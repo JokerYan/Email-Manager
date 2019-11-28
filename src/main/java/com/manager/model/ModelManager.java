@@ -44,6 +44,10 @@ public class ModelManager {
         updateEmailStorage();
     }
 
+    public EmailList getEmailList() {
+        return this.emailList;
+    }
+
     private void updateEmailStorage() {
         try {
             EmailStorage.getInstance().saveEmails(emailList.toList());

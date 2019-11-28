@@ -251,7 +251,7 @@ public class Email {
     public JSONObject toIndexJson() throws JSONException {
         JSONObject indexJson = new JSONObject();
         indexJson.put("subject", this.subject);
-        indexJson.put("sender", this.sender.toString());
+        indexJson.put("sender", this.sender.toJsonString());
         indexJson.put("receivedDateTime", this.getDateTimeString());
         indexJson.put("updatedOn", TimeUtil.formatTimestamp(this.updatedOn));
         JSONArray tagArray = prepareTagJsonArray();

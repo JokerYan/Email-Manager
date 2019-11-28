@@ -54,4 +54,8 @@ public class EmailList implements Iterable<Email> {
     public ArrayList<Email> toList() {
         return new ArrayList<>(this.internalList);
     }
+
+    public ObservableList<Email> asUnmodifiableList() {
+        return internalUnmodifiableList;
+    }
 }
